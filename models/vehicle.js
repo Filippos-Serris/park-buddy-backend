@@ -13,6 +13,6 @@ const clientSchema = new Schema({
   },
 });
 
-const Client = mongoose.model("Client", clientSchema);
+const Vehicle = mongoose.model("Vehicle", clientSchema);
 
-module.exports = Client;
+module.exports = Vehicle;
