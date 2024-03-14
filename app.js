@@ -8,6 +8,7 @@ const authMiddleware = require("./authMiddleware");
 
 const User = require("./models/user");
 const Vehicle = require("./models/vehicle");
+const Parking = require("./models/parking");
 
 mongoose.connect("mongodb://localhost:27017/park-buddy", {
   useNewUrlParser: true,
@@ -83,6 +84,21 @@ app.post("/vehicle", authMiddleware, async (req, res) => {
 
   const vehicle = new Vehicle({ ...jsonData, owner: userId });
   await vehicle.save();
+  res.status(200).json({ message: "Registration successful" });
+});
+
+// --------- Parking -----------
+
+// register parking
+app.post("/parking", authMiddleware, async (req, res) => {
+  const jsonData = req.body;
+  console.log(jsonData);
+
+  const userId = req.user._id;
+  console.log(userId);
+
+  const parking = new Parking({ ...jsonData, owner: userId });
+  await parking.save();
   res.status(200).json({ message: "Registration successful" });
 });
 

@@ -6,7 +6,7 @@ const clientSchema = new Schema({
   model: { type: String, required: true },
   color: { type: String, required: true },
   plate: { type: String, required: true },
-  size: { type: String, enum: ["small", "medium", "large"] },
+  size: { type: String, enum: ["s", "m", "l", "moto"] },
   owner: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",

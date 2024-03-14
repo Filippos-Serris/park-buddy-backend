@@ -1,15 +1,18 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const parkingSpaceSchema = new Schema({
+const parkingSchema = new Schema({
   name: { type: String, required: true },
   location: {
-    road: { type: String, required: true },
+    street: { type: String, required: true },
     number: { type: Number, required: true },
     postal: { type: Number, required: true },
     city: { type: String, required: true },
   },
-  slots: { type: Number, required: true },
+  slots: {
+    vehicle: { type: Number, required: true },
+    moto: { type: Number, required: true },
+  },
   pricing: {
     hourly: {
       type: Number,
@@ -26,6 +29,6 @@ const parkingSpaceSchema = new Schema({
   },
 });
 
-const ParkingSpace = mongoose.model("ParkingSpace", parkingSpaceSchema);
+const Parking = mongoose.model("Parking", parkingSchema);
 
-module.exports = ParkingSpace;
+module.exports = Parking;
