@@ -97,9 +97,39 @@ app.post("/parking", authMiddleware, async (req, res) => {
   const userId = req.user._id;
   console.log(userId);
 
-  const parking = new Parking({ ...jsonData, owner: userId });
+  const parking = new Parking({
+    ...jsonData,
+    availableSlots: {
+      car: jsonData.slots.vehicle,
+      moto: jsonData.slots.moto,
+    },
+    owner: userId,
+  });
   await parking.save();
   res.status(200).json({ message: "Registration successful" });
+});
+
+app.get("/parking", authMiddleware, async (req, res) => {
+  console.log("hey");
+
+  try {
+    const city = req.query.city;
+    //const arrivalDate = req.query.arrivalDate;
+    //const arrivalTime = req.query.arrivalTime;
+    //const departDate = req.query.departDate;
+    //const departTime = req.query.departTime;
+    //const vehicle = req.query.vehicle;
+
+    const filteredParking = await Parking.find({ "location.city": city });
+
+    console.log(filteredParking);
+    //res.json(filteredParking);
+
+    res.status(200).json({ success: true, parkingData: filteredParking });
+  } catch (error) {
+    console.error("Error retrieving parking data:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
 });
 
 app.listen(8080, () => {

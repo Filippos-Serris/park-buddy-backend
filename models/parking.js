@@ -10,7 +10,11 @@ const parkingSchema = new Schema({
     city: { type: String, required: true },
   },
   slots: {
-    vehicle: { type: Number, required: true },
+    car: { type: Number, required: true },
+    moto: { type: Number, required: true },
+  },
+  availableSlots: {
+    car: { type: Number, required: true },
     moto: { type: Number, required: true },
   },
   pricing: {
